@@ -1,0 +1,15 @@
+﻿<Window x:Class="DocTag.UI.TagDoc"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="TagDoc" Height="344" Width="538">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <WrapPanel Name="TagWP">
+            
+        </WrapPanel>
+        <GridSplitter Width="4"></GridSplitter>
+    </Grid>
+</Window>
