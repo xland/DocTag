@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DocTag.UI
+namespace DocTag
 {
     public class TagDocEntity
     {

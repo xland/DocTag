@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DocTag.UI.Properties
+namespace DocTag.Properties
 {
 
 

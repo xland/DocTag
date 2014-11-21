@@ -10,18 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data;
 using System.Data.SQLite;
 
-namespace DocTag.UI
+namespace DocTag
 {
     /// <summary>
-    /// TagDoc.xaml 的交互逻辑
+    /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class TagDoc : Window
+    public partial class MainWindow : Window
     {
-        public TagDoc()
+        public MainWindow()
         {
             InitializeComponent();
             this.Loaded += TagDoc_Loaded;
@@ -29,23 +30,10 @@ namespace DocTag.UI
 
         void TagDoc_Loaded(object sender, RoutedEventArgs e)
         {
-
+            AddDocTag();
         }
 
-        void InitTags()
-        {
-            var btn = new Button();
-            btn.Margin = new Thickness(8, 8, 8, 8);
-            btn.Padding = new Thickness(6, 6, 6, 6);
-            btn.Content = "test";
-            TagWP.Children.Add(btn);
 
-            var btn2 = new Button();
-            btn2.Margin = new Thickness(8, 8, 8, 8);
-            btn2.Padding = new Thickness(6, 6, 6, 6);
-            btn2.Content = "测试长一点的文字";
-            TagWP.Children.Add(btn2);
-        }
         void AddDocTag()
         {
             var entity = new TagDocEntity();
