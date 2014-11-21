@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Data;
+using System.Data.SQLite;
 
 namespace DocTag.UI
 {
@@ -27,6 +29,11 @@ namespace DocTag.UI
 
         void TagDoc_Loaded(object sender, RoutedEventArgs e)
         {
+
+        }
+
+        void InitTags()
+        {
             var btn = new Button();
             btn.Margin = new Thickness(8, 8, 8, 8);
             btn.Padding = new Thickness(6, 6, 6, 6);
@@ -38,6 +45,36 @@ namespace DocTag.UI
             btn2.Padding = new Thickness(6, 6, 6, 6);
             btn2.Content = "测试长一点的文字";
             TagWP.Children.Add(btn2);
+        }
+        void AddDocTag()
+        {
+            var entity = new TagDocEntity();
+            entity.TagVal = "DocTag";
+            entity.DocPath = @"D:\Code\DocTag\DocTag\DocTag.UI\bin\Debug";
+            entity.DocName = "DocPath";
+            entity.DocType = 1;
+            var conn = new SQLiteConnection("Data Source=db.db;");
+            SQLiteCommand cmd = conn.CreateCommand();
+            try
+            {
+
+                conn.Open();
+                cmd.CommandText = "INSERT INTO TagDoc(TagVal, DocPath, DocName,DocType) VALUES(@TagVal, @DocPath, @DocName, @DocType)";
+                cmd.Parameters.Add(new SQLiteParameter("TagVal", entity.TagVal));
+                cmd.Parameters.Add(new SQLiteParameter("DocPath", entity.DocPath));
+                cmd.Parameters.Add(new SQLiteParameter("DocName", entity.DocName));
+                cmd.Parameters.Add(new SQLiteParameter("DocType", entity.DocType));
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                MessageBox.Show("存储异常，请联系管理员");
+            }
+            finally
+            {
+                cmd.Dispose();
+                conn.Close();
+            }
         }
     }
 }
