@@ -21,6 +21,11 @@ namespace DocTag
     /// </summary>
     public partial class DocTagWin : Window
     {
+        public string CurPath
+        {
+            get;
+            set;
+        }
         public DocTagWin()
         {
             InitializeComponent();
@@ -42,6 +47,7 @@ namespace DocTag
                 cmd.Parameters.Add(new SQLiteParameter("ReferCount", entity.ReferCount));
                 cmd.Parameters.Add(new SQLiteParameter("HasSync", entity.HasSync));
                 cmd.ExecuteNonQuery();
+                cmd.Parameters.Clear();
             }
             catch
             {

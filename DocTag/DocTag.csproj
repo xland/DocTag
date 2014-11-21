@@ -108,6 +108,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="右键菜单注册表.reg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

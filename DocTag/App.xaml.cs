@@ -13,5 +13,20 @@ namespace DocTag
     /// </summary>
     public partial class App : Application
     {
+        private void App_Startup(object sender, StartupEventArgs e)
+        {
+            if (e.Args.Length > 0)
+            {
+                var dtw = new DocTagWin();
+                dtw.CurPath = e.Args[0];
+                dtw.Show();
+            }
+            else
+            {
+                var w = new MainWindow();
+                w.Show();
+            }
+            
+        }
     }
 }
