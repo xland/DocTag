@@ -59,7 +59,8 @@
     <Compile Include="DocTagWin.xaml.cs">
       <DependentUpon>DocTagWin.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TagDocEntity.cs" />
+    <Compile Include="Entity\Doc.cs" />
+    <Compile Include="Entity\Tag.cs" />
     <Compile Include="TagDocWin.xaml.cs">
       <DependentUpon>TagDocWin.xaml</DependentUpon>
     </Compile>

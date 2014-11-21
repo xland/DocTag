@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
+using System.Data.SQLite;
 
-namespace DocTag
+namespace DocTag.Entity
 {
-    public class TagDocEntity
+    public class Tag
     {
+        private List<Doc> docs;
         public int RowId
         {
             get;
@@ -18,34 +21,30 @@ namespace DocTag
             get;
             set;
         }
-        public string DocPath
+        public int ReferCount
         {
             get;
             set;
         }
-        public string DocName
+        public int HasSync
         {
             get;
             set;
         }
-        /// <summary>
-        /// 0:文件
-        /// 1:文件夹
-        /// </summary>
-        public int DocType
-        {
-            get;
-            set;
+        public List<Doc> Docs
+        { 
+            get
+            {
+                return docs;
+            }
         }
-        /// <summary>
-        /// 同步时间
-        /// </summary>
-        public int SyncTime
+        public Tag()
         {
-            get;
-            set;
+            docs = new List<Doc>();
+        }
+        public void GetDocByTag(string Path)
+        {
+
         }
     }
-
-
 }

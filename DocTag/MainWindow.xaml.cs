@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data;
 using System.Data.SQLite;
+using DocTag.Entity;
 
 namespace DocTag
 {
@@ -30,29 +31,30 @@ namespace DocTag
 
         void TagDoc_Loaded(object sender, RoutedEventArgs e)
         {
-            AddDocTag();
+            GetAllTag();
         }
 
-
-        void AddDocTag()
+        void GetAllTag()
         {
-            var entity = new TagDocEntity();
-            entity.TagVal = "DocTag";
-            entity.DocPath = @"D:\Code\DocTag\DocTag\DocTag.UI\bin\Debug";
-            entity.DocName = "DocPath";
-            entity.DocType = 1;
             var conn = new SQLiteConnection("Data Source=db.db;");
             SQLiteCommand cmd = conn.CreateCommand();
             try
             {
-
                 conn.Open();
-                cmd.CommandText = "INSERT INTO TagDoc(TagVal, DocPath, DocName,DocType) VALUES(@TagVal, @DocPath, @DocName, @DocType)";
-                cmd.Parameters.Add(new SQLiteParameter("TagVal", entity.TagVal));
-                cmd.Parameters.Add(new SQLiteParameter("DocPath", entity.DocPath));
-                cmd.Parameters.Add(new SQLiteParameter("DocName", entity.DocName));
-                cmd.Parameters.Add(new SQLiteParameter("DocType", entity.DocType));
-                cmd.ExecuteNonQuery();
+                cmd.CommandText = "select RowId,TagVal from Tag order by ReferCount desc";
+                var reader = cmd.ExecuteReader();
+                while(reader.Read())
+                {
+                    var entity = new Tag();
+                    entity.TagVal = reader["TagVal"].ToString();
+                    entity.RowId = Convert.ToInt32(reader["RowId"]);
+
+                    var btn = new Button();
+                    btn.Margin = new Thickness(8, 8, 8, 8);
+                    btn.Padding = new Thickness(6, 6, 6, 6);
+                    btn.Content = reader["TagVal"].ToString();
+                    TagWP.Children.Add(btn);
+                }
             }
             catch
             {
@@ -64,5 +66,7 @@ namespace DocTag
                 conn.Close();
             }
         }
+
+
     }
 }
