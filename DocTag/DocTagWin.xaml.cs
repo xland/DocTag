@@ -104,7 +104,7 @@ namespace DocTag
                 if (tagId > 0)
                 {
                     //存在此标签，则给标签的引用计数加一
-                    cmd.CommandText = "update tag set ReferCount += 1 where rowid = @rowid";
+                    cmd.CommandText = "update Tag set ReferCount =  ReferCount + 1 where rowid = @rowid;";
                     cmd.Parameters.Add(new SQLiteParameter("rowid", tagId));
                     cmd.ExecuteNonQuery();
                     cmd.Parameters.Clear();
@@ -112,23 +112,17 @@ namespace DocTag
                 else
                 {
                     //不存在此标签，则新增一行记录，并返回ID
-                    cmd.CommandText = "INSERT INTO Tag(TagVal, ReferCount, HasSync) VALUES (@TagVal, @ReferCount, @HasSync);select last_insert_rowid();";
+                    cmd.CommandText = "INSERT INTO Tag (TagVal, ReferCount, HasSync) VALUES (@TagVal, @ReferCount, @HasSync);select last_insert_rowid();";
                     cmd.Parameters.Add(new SQLiteParameter("TagVal", entity.TagVal));
                     cmd.Parameters.Add(new SQLiteParameter("ReferCount", entity.ReferCount));
                     cmd.Parameters.Add(new SQLiteParameter("HasSync", entity.HasSync));
                     tagId = Convert.ToInt32(cmd.ExecuteScalar());
                     cmd.Parameters.Clear();
-                    //把这个标签增加到当前界面中
-                    var btn = new Button();
-                    btn.Margin = new Thickness(8, 8, 8, 8);
-                    btn.Padding = new Thickness(6, 6, 6, 6);
-                    btn.Content = entity.TagVal;
-                    TagWP.Children.Add(btn);
                 }                
                 if (docId <= 0)
                 {
                     //数据库中没有这个文档的记录，新增文档记录
-                    cmd.CommandText = "INSERT INTO Tag(DocName, DocPath, DocType,HasSync) VALUES (@DocName, @DocPath,@DocType, @HasSync);select last_insert_rowid();";
+                    cmd.CommandText = "INSERT INTO Doc (DocName, DocPath, DocType,HasSync) VALUES (@DocName, @DocPath,@DocType, @HasSync);select last_insert_rowid();";
                     if (File.Exists(CurPath))
                     {
                         cmd.Parameters.Add(new SQLiteParameter("DocName", System.IO.Path.GetFileName(CurPath)));
@@ -136,7 +130,8 @@ namespace DocTag
                     }
                     else
                     {
-                        cmd.Parameters.Add(new SQLiteParameter("DocName", System.IO.Path.GetDirectoryName(CurPath)));
+                        var di = new DirectoryInfo(CurPath);
+                        cmd.Parameters.Add(new SQLiteParameter("DocName", di.Name));
                         cmd.Parameters.Add(new SQLiteParameter("DocType", 1));
                     }
                     cmd.Parameters.Add(new SQLiteParameter("DocPath", CurPath));                    
@@ -151,6 +146,13 @@ namespace DocTag
                 cmd.Parameters.Add(new SQLiteParameter("TagId", tagId));
                 cmd.Parameters.Add(new SQLiteParameter("HasSync", 0));
                 cmd.ExecuteNonQuery();
+                //把这个标签增加到当前界面中
+                curDocTags.Add(entity);
+                var btn = new Button();
+                btn.Margin = new Thickness(8, 8, 8, 8);
+                btn.Padding = new Thickness(6, 6, 6, 6);
+                btn.Content = entity.TagVal;
+                TagWP.Children.Add(btn);
             }
             catch(Exception ex)
             {

@@ -16,7 +16,7 @@
                 <Button Grid.Column="1" Name="SaveTagBtn" Content="保存" Height="30" Click="SaveTagBtn_Click"  Margin="10 10 10 10"></Button>
                 <TextBox VerticalContentAlignment="Center" Name="TagTB" Height="30"  Margin="10 10 10 10"></TextBox>
                 <WrapPanel Name="TagWP" Grid.Row="1" Grid.ColumnSpan="2" Height="auto">
-                    <Button Content="allen"></Button>
+                    
                 </WrapPanel>
             </Grid>
         </StackPanel>
