@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Data;
 using System.Data.SQLite;
 using DocTag.Entity;
+using DocTag.DB;
 
 namespace DocTag
 {
@@ -36,7 +37,7 @@ namespace DocTag
 
         void GetAllTag()
         {
-            var conn = new SQLiteConnection("Data Source=db.db;");
+            var conn = new SQLiteConnection(DBSQLite.GetConnStr());
             SQLiteCommand cmd = conn.CreateCommand();
             try
             {

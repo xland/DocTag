@@ -26,6 +26,10 @@ namespace DocTag
                 var w = new MainWindow();
                 w.Show();
             }
+
+            //var dtw = new DocTagWin();
+            //dtw.CurPath = @"D:\Code\DocTag\DocTag\DocTag\bin\Debug";
+            //dtw.Show();
             
         }
     }
