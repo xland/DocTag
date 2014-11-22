@@ -3,13 +3,25 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="0"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <WrapPanel Name="TagWP">
+        <Grid Grid.ColumnSpan="2">    
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="120"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBox VerticalContentAlignment="Center" Name="TagTB" Height="30" Margin="6"></TextBox>
+            <Button Grid.Column="1" Name="SearchBtn" Content="搜索" Height="30" Click="SearchBtn_Click" Margin="6"></Button>
+        </Grid>
+        <WrapPanel Name="TagWP" Grid.Row="1">
 
         </WrapPanel>
-        <GridSplitter Width="4"></GridSplitter>
+        <GridSplitter Width="4" Grid.Row="1" Visibility="Hidden"></GridSplitter>
     </Grid>
 </Window>

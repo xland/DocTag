@@ -68,6 +68,11 @@ namespace DocTag
             }
         }
 
+        private void SearchBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
 
     }
 }
