@@ -50,11 +50,13 @@ namespace DocTag
                     entity.TagVal = reader["TagVal"].ToString();
                     entity.RowId = Convert.ToInt32(reader["RowId"]);
 
-                    var btn = new Button();
-                    btn.Margin = new Thickness(8, 8, 8, 8);
-                    btn.Padding = new Thickness(6, 6, 6, 6);
-                    btn.Content = reader["TagVal"].ToString();
-                    TagWP.Children.Add(btn);
+                    var tagBtn = new Button();
+                    tagBtn.Margin = new Thickness(8, 8, 8, 8);
+                    tagBtn.Padding = new Thickness(6, 6, 6, 6);
+                    tagBtn.Click += tagBtn_Click;
+                    tagBtn.Content = reader["TagVal"].ToString();
+                    tagBtn.Tag = entity;
+                    TagWP.Children.Add(tagBtn);
                 }
             }
             catch
@@ -67,6 +69,55 @@ namespace DocTag
                 conn.Close();
             }
         }
+
+        void tagBtn_Click(object sender, RoutedEventArgs e)
+        {
+            DocWP.Children.Clear();
+            var btn = (Button)sender;
+            var tag = (Tag)btn.Tag;
+            var conn = new SQLiteConnection(DBSQLite.GetConnStr());
+            SQLiteCommand cmd = conn.CreateCommand();
+            try
+            {
+                conn.Open();
+                cmd.CommandText = "select d.* from tagdoc td left join Doc d  on td.docid = d.rowid where td.tagid = @tagid";
+                cmd.Parameters.Add(new SQLiteParameter("tagid", tag.RowId));
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    var entity = new Doc();
+                    entity.DocName = reader["DocName"].ToString();
+                    entity.DocPath = reader["DocPath"].ToString();
+                    entity.DocType = Convert.ToInt32(reader["DocType"]);
+
+                    var docBtn = new Button();
+                    docBtn.Margin = new Thickness(8, 8, 8, 8);
+                    docBtn.Padding = new Thickness(6, 6, 6, 6);
+                    docBtn.Content = entity.DocName;
+                    docBtn.Tag = entity;
+                    docBtn.Click += docBtn_Click;
+                    DocWP.Children.Add(docBtn);
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                cmd.Dispose();
+                conn.Close();
+            }
+        }
+
+        void docBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = (Button)sender;
+            var doc = (Doc)btn.Tag;
+            System.Diagnostics.Process.Start(doc.DocPath);
+        }
+
+
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
