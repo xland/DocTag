@@ -117,11 +117,46 @@ namespace DocTag
             System.Diagnostics.Process.Start(doc.DocPath);
         }
 
-
-
-        private void SearchBtn_Click(object sender, RoutedEventArgs e)
+        private void SearchTagBtn_Click(object sender, RoutedEventArgs e)
         {
+            TagWP.Children.Clear();
+            var conn = new SQLiteConnection(DBSQLite.GetConnStr());
+            SQLiteCommand cmd = conn.CreateCommand();
+            try
+            {
+                conn.Open();
+                cmd.CommandText = "select RowId,TagVal from Tag where TagVal like @tagval order by ReferCount desc";
+                cmd.Parameters.Add(new SQLiteParameter("tagval", "%"+TagTB.Text.Trim()+"%"));
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    var entity = new Tag();
+                    entity.TagVal = reader["TagVal"].ToString();
+                    entity.RowId = Convert.ToInt32(reader["RowId"]);
 
+                    var tagBtn = new Button();
+                    tagBtn.Margin = new Thickness(8, 8, 8, 8);
+                    tagBtn.Padding = new Thickness(6, 6, 6, 6);
+                    tagBtn.Click += tagBtn_Click;
+                    tagBtn.Content = reader["TagVal"].ToString();
+                    tagBtn.Tag = entity;
+                    TagWP.Children.Add(tagBtn);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("存储异常，请联系管理员");
+            }
+            finally
+            {
+                cmd.Dispose();
+                conn.Close();
+            }
+        }
+
+        private void SearchDocBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("此功能尚未开发");
         }
 
 

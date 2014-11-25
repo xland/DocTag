@@ -1,7 +1,7 @@
 ﻿<Window x:Class="DocTag.DocTagWin"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="DocTagWin" Height="300" Width="300" WindowStartupLocation="CenterScreen">
+        Title="文档标签工具" Height="278" Width="390" WindowStartupLocation="CenterScreen">
     <Grid>
         <StackPanel>
             <Grid>
