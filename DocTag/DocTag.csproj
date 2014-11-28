@@ -48,6 +48,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DB\DBSQLite.cs" />
+    <Compile Include="DocTag.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DocTag.Designer.cs">
+      <DependentUpon>DocTag.cs</DependentUpon>
+    </Compile>
     <Compile Include="Entity\Doc.cs" />
     <Compile Include="Entity\Tag.cs" />
     <Compile Include="MainForm.cs">
@@ -58,6 +64,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DocTag.resx">
+      <DependentUpon>DocTag.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
