@@ -1,17 +1,15 @@
 ﻿using System.Reflection;
-using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Windows;
 
 // 有关程序集的常规信息通过以下
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("DocTag")]
+[assembly: AssemblyTitle("DocTag.Winform")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DocTag")]
+[assembly: AssemblyProduct("DocTag.Winform")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -21,25 +19,8 @@ using System.Windows;
 // 则将该类型上的 ComVisible 特性设置为 true。
 [assembly: ComVisible(false)]
 
-//若要开始生成可本地化的应用程序，请在 
-//<PropertyGroup> 中的 .csproj 文件中
-//设置 <UICulture>CultureYouAreCodingWith</UICulture>。  例如，如果您在源文件中
-//使用的是美国英语，请将 <UICulture> 设置为 en-US。  然后取消
-//对以下 NeutralResourceLanguage 特性的注释。  更新
-//以下行中的“en-US”以匹配项目文件中的 UICulture 设置。
-
-//[assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.Satellite)]
-
-
-[assembly: ThemeInfo(
-    ResourceDictionaryLocation.None, //主题特定资源词典所处位置
-    //(在页面或应用程序资源词典中 
-    // 未找到某个资源的情况下使用)
-    ResourceDictionaryLocation.SourceAssembly //常规资源词典所处位置
-    //(在页面、应用程序或任何主题特定资源词典中
-    // 未找到某个资源的情况下使用)
-)]
-
+// 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
+[assembly: Guid("879281a2-2789-48e4-a31c-25d85aab6802")]
 
 // 程序集的版本信息由下面四个值组成: 
 //
