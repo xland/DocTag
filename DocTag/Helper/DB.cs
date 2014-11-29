@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DocTag.DB
+namespace DocTag.Helper
 {
-    public class DBSQLite
+    public static class DB
     {
         private static string dbPath = @"Data Source=D:\Code\DocTag\DocTag\DocTag\bin\Debug\db.db;";
 

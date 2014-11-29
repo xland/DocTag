@@ -18,10 +18,13 @@ namespace DocTag
             Application.SetCompatibleTextRenderingDefault(false);            
             if (args.Length > 0)
             {
-                Application.Run(new DocTag());
+                var dt = new DocTag();
+                dt.CurPath = args[0];
+                Application.Run(dt);
             }
             else
             {
+                //Application.Run(new DocTag());
                 Application.Run(new MainForm());
             }
         }

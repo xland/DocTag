@@ -1,4 +1,4 @@
-﻿using DocTag.DB;
+﻿using DocTag.Helper;
 using DocTag.Entity;
 using System;
 using System.Data.SQLite;
@@ -22,7 +22,7 @@ namespace DocTag
         }
         void GetAllTag()
         {
-            var conn = new SQLiteConnection(DBSQLite.GetConnStr());
+            var conn = new SQLiteConnection(DB.GetConnStr());
             SQLiteCommand cmd = conn.CreateCommand();
             try
             {
@@ -33,9 +33,9 @@ namespace DocTag
                 {
                     var entity = new Tag();
                     entity.TagVal = reader["TagVal"].ToString();
-                    entity.RowId = Convert.ToInt32(reader["RowId"]);
+                    entity.Id = Convert.ToInt32(reader["RowId"]);
 
-                    var tagBtn =  createBtn();
+                    var tagBtn = UI.CreateBtn();
                     tagBtn.Click += tagBtn_Click;
                     tagBtn.Text = entity.TagVal;
                     tagBtn.Tag = entity;
@@ -59,13 +59,13 @@ namespace DocTag
             DocFlowPanel.Controls.Clear();
             var btn = (Button)sender;
             var tag = (Tag)btn.Tag;
-            var conn = new SQLiteConnection(DBSQLite.GetConnStr());
+            var conn = new SQLiteConnection(DB.GetConnStr());
             SQLiteCommand cmd = conn.CreateCommand();
             try
             {
                 conn.Open();
                 cmd.CommandText = "select d.* from tagdoc td left join Doc d  on td.docid = d.rowid where td.tagid = @tagid";
-                cmd.Parameters.Add(new SQLiteParameter("tagid", tag.RowId));
+                cmd.Parameters.Add(new SQLiteParameter("tagid", tag.Id));
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
@@ -74,7 +74,7 @@ namespace DocTag
                     entity.DocPath = reader["DocPath"].ToString();
                     entity.DocType = Convert.ToInt32(reader["DocType"]);
 
-                    var docBtn = createBtn();
+                    var docBtn = UI.CreateBtn();
                     docBtn.Text = entity.DocName;
                     docBtn.Tag = entity;
                     docBtn.Click += docBtn_Click;
@@ -98,13 +98,39 @@ namespace DocTag
             System.Diagnostics.Process.Start(doc.DocPath);
         }
 
-        Button createBtn()
+        private void TagSearchTB_TextChanged(object sender, EventArgs e)
         {
-            var btn = new Button();
-            btn.Margin = new System.Windows.Forms.Padding(6);
-            btn.Padding = new System.Windows.Forms.Padding(6);
-            btn.Height = 36;
-            return btn;
+            TagFlowPanel.Controls.Clear();
+            var conn = new SQLiteConnection(DB.GetConnStr());
+            SQLiteCommand cmd = conn.CreateCommand();
+            try
+            {
+                conn.Open();
+                cmd.CommandText = "select RowId,TagVal from Tag where TagVal like @tagval order by ReferCount desc";
+                cmd.Parameters.Add(new SQLiteParameter("tagval", "%" + TagSearchTB.Text.Trim() + "%"));
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    var entity = new Tag();
+                    entity.TagVal = reader["TagVal"].ToString();
+                    entity.Id = Convert.ToInt32(reader["RowId"]);
+
+                    var tagBtn = UI.CreateBtn();
+                    tagBtn.Click += tagBtn_Click;
+                    tagBtn.Text = reader["TagVal"].ToString();
+                    tagBtn.Tag = entity;
+                    TagFlowPanel.Controls.Add(tagBtn);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("存储异常，请联系管理员");
+            }
+            finally
+            {
+                cmd.Dispose();
+                conn.Close();
+            }
         }
         #region 重绘标题栏
         //[DllImport("user32.dll")]

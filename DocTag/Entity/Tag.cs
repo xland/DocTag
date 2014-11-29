@@ -11,7 +11,7 @@ namespace DocTag.Entity
     public class Tag
     {
         private List<Doc> docs;
-        public int RowId
+        public int Id
         {
             get;
             set;
