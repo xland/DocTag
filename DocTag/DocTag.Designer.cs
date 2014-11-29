@@ -28,11 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.TagTB = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.TagWP = new System.Windows.Forms.FlowLayoutPanel();
+            this.BtnMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.DelTagMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
+            this.BtnMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -44,6 +48,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(440, 26);
             this.panel1.TabIndex = 6;
+            // 
+            // TagTB
+            // 
+            this.TagTB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TagTB.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.TagTB.Location = new System.Drawing.Point(0, 0);
+            this.TagTB.Multiline = true;
+            this.TagTB.Name = "TagTB";
+            this.TagTB.Size = new System.Drawing.Size(365, 26);
+            this.TagTB.TabIndex = 3;
+            this.TagTB.TextChanged += new System.EventHandler(this.TagTB_TextChanged);
             // 
             // button1
             // 
@@ -57,17 +72,6 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.SaveTagBtn_Click);
             // 
-            // TagTB
-            // 
-            this.TagTB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TagTB.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.TagTB.Location = new System.Drawing.Point(0, 0);
-            this.TagTB.Multiline = true;
-            this.TagTB.Name = "TagTB";
-            this.TagTB.Size = new System.Drawing.Size(365, 26);
-            this.TagTB.TabIndex = 3;
-            this.TagTB.TextChanged += new System.EventHandler(this.TagTB_TextChanged);
-            // 
             // TagWP
             // 
             this.TagWP.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -75,6 +79,21 @@
             this.TagWP.Name = "TagWP";
             this.TagWP.Size = new System.Drawing.Size(440, 309);
             this.TagWP.TabIndex = 4;
+            // 
+            // BtnMenu
+            // 
+            this.BtnMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.DelTagMenu});
+            this.BtnMenu.Name = "contextMenuStrip1";
+            this.BtnMenu.ShowImageMargin = false;
+            this.BtnMenu.Size = new System.Drawing.Size(128, 48);
+            // 
+            // DelTagMenu
+            // 
+            this.DelTagMenu.Name = "DelTagMenu";
+            this.DelTagMenu.Size = new System.Drawing.Size(152, 22);
+            this.DelTagMenu.Text = "删除";
+            this.DelTagMenu.Click += new System.EventHandler(this.DelTagMenu_Click);
             // 
             // DocTag
             // 
@@ -90,6 +109,7 @@
             this.Load += new System.EventHandler(this.DocTagWin_Loaded);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.BtnMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -100,5 +120,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox TagTB;
         private System.Windows.Forms.FlowLayoutPanel TagWP;
+        private System.Windows.Forms.ContextMenuStrip BtnMenu;
+        private System.Windows.Forms.ToolStripMenuItem DelTagMenu;
     }
 }
