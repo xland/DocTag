@@ -32,9 +32,9 @@
             this.TagSearchTB = new System.Windows.Forms.TextBox();
             this.DocSearchTB = new System.Windows.Forms.TextBox();
             this.TagAreaPanel = new System.Windows.Forms.Panel();
+            this.TagFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.DocAreaPanel = new System.Windows.Forms.Panel();
-            this.TagFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.DocFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.TagAreaPanel.SuspendLayout();
             this.DocAreaPanel.SuspendLayout();
@@ -69,6 +69,7 @@
             this.DocSearchTB.Name = "DocSearchTB";
             this.DocSearchTB.Size = new System.Drawing.Size(558, 26);
             this.DocSearchTB.TabIndex = 0;
+            this.DocSearchTB.TextChanged += new System.EventHandler(this.DocSearchTB_TextChanged);
             // 
             // TagAreaPanel
             // 
@@ -81,6 +82,15 @@
             this.TagAreaPanel.Padding = new System.Windows.Forms.Padding(6);
             this.TagAreaPanel.Size = new System.Drawing.Size(514, 531);
             this.TagAreaPanel.TabIndex = 4;
+            // 
+            // TagFlowPanel
+            // 
+            this.TagFlowPanel.AutoScroll = true;
+            this.TagFlowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TagFlowPanel.Location = new System.Drawing.Point(6, 32);
+            this.TagFlowPanel.Name = "TagFlowPanel";
+            this.TagFlowPanel.Size = new System.Drawing.Size(502, 493);
+            this.TagFlowPanel.TabIndex = 1;
             // 
             // splitter1
             // 
@@ -102,15 +112,6 @@
             this.DocAreaPanel.Padding = new System.Windows.Forms.Padding(6);
             this.DocAreaPanel.Size = new System.Drawing.Size(570, 531);
             this.DocAreaPanel.TabIndex = 6;
-            // 
-            // TagFlowPanel
-            // 
-            this.TagFlowPanel.AutoScroll = true;
-            this.TagFlowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TagFlowPanel.Location = new System.Drawing.Point(6, 32);
-            this.TagFlowPanel.Name = "TagFlowPanel";
-            this.TagFlowPanel.Size = new System.Drawing.Size(502, 493);
-            this.TagFlowPanel.TabIndex = 1;
             // 
             // DocFlowPanel
             // 
