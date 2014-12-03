@@ -13,7 +13,7 @@
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -57,6 +57,12 @@
     <Compile Include="Entity\Tag.cs" />
     <Compile Include="Helper\DB.cs" />
     <Compile Include="Helper\UI.cs" />
+    <Compile Include="Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main.Designer.cs">
+      <DependentUpon>Main.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,6 +79,9 @@
     </Compile>
     <EmbeddedResource Include="DocTag.resx">
       <DependentUpon>DocTag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -91,6 +100,13 @@
     <EmbeddedResource Include="TagSuggestionCtl.resx">
       <DependentUpon>TagSuggestionCtl.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Html\SUI\themes\basic\assets\fonts\icons.eot" />
+    <None Include="Html\SUI\themes\basic\assets\fonts\icons.ttf" />
+    <None Include="Html\SUI\themes\basic\assets\fonts\icons.woff" />
+    <None Include="Html\SUI\themes\default\assets\fonts\icons.eot" />
+    <None Include="Html\SUI\themes\default\assets\fonts\icons.otf" />
+    <None Include="Html\SUI\themes\default\assets\fonts\icons.ttf" />
+    <None Include="Html\SUI\themes\default\assets\fonts\icons.woff" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -103,6 +119,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Html\Main.html" />
+    <Content Include="Html\SUI\jquery-1.11.1.min.js" />
+    <Content Include="Html\SUI\semantic.min.css" />
+    <Content Include="Html\SUI\semantic.min.js" />
+    <Content Include="Html\SUI\themes\basic\assets\fonts\icons.svg" />
+    <Content Include="Html\SUI\themes\default\assets\fonts\icons.svg" />
+    <Content Include="Html\SUI\themes\default\assets\images\flags.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

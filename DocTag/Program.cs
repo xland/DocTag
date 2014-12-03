@@ -24,8 +24,8 @@ namespace DocTag
             }
             else
             {
-                //Application.Run(new DocTag());
-                Application.Run(new MainForm());
+                Application.Run(new DocTag());
+                //Application.Run(new Main());
             }
         }
     }
