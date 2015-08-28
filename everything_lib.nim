@@ -18,7 +18,7 @@ const
 
 # write search state
 
-proc Everything_SetSearchW*(lpString: LPCWSTR) {.stdcall, 
+proc Everything_SetSearchW*(lpString: WideCString ) {.stdcall, 
   importc: "Everything_SetSearchW".}
 proc Everything_SetSearchA*(lpString: LPCSTR) {.stdcall, 
   importc: "Everything_SetSearchA".}
@@ -50,7 +50,7 @@ proc Everything_GetMax*(): DWORD {.stdcall, importc: "Everything_GetMax".}
 proc Everything_GetOffset*(): DWORD {.stdcall, importc: "Everything_GetOffset".}
 proc Everything_GetSearchA*(): LPCSTR {.stdcall, 
                                       importc: "Everything_GetSearchA".}
-proc Everything_GetSearchW*(): LPCWSTR {.stdcall, 
+proc Everything_GetSearchW*(): WideCString  {.stdcall, 
   importc: "Everything_GetSearchW".}
 proc Everything_GetLastError*(): DWORD {.stdcall, 
   importc: "Everything_GetLastError".}
@@ -93,11 +93,11 @@ proc Everything_IsFolderResult*(nIndex: DWORD): BOOL {.stdcall,
   importc: "Everything_IsFolderResult".}
 proc Everything_IsFileResult*(nIndex: DWORD): BOOL {.stdcall, 
   importc: "Everything_IsFileResult".}
-proc Everything_GetResultFileNameW*(nIndex: DWORD): LPCWSTR {.stdcall, 
+proc Everything_GetResultFileNameW*(nIndex: DWORD): WideCString  {.stdcall, 
   importc: "Everything_GetResultFileNameW".}
 proc Everything_GetResultFileNameA*(nIndex: DWORD): LPCSTR {.stdcall, 
   importc: "Everything_GetResultFileNameA".}
-proc Everything_GetResultPathW*(nIndex: DWORD): LPCWSTR {.stdcall, 
+proc Everything_GetResultPathW*(nIndex: DWORD): WideCString  {.stdcall, 
   importc: "Everything_GetResultPathW".}
 proc Everything_GetResultPathA*(nIndex: DWORD): LPCSTR {.stdcall, 
   importc: "Everything_GetResultPathA".}
