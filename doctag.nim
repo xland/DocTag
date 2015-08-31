@@ -1,13 +1,17 @@
-import  windows,strutils,iup
+import  windows,strutils,tables,iup,db_sqlite
 discard iup.open(nil, nil)
+
+#窗口上的控件句柄
+var tagTextBox,tagsContainer:PIhandle
+var tagsTable = initTable[int,PIhandle]()
+#打开数据库链接
+var conn = db_sqlite.open("db.db","","","")
 
 #读取当前选中的文件
 var params = windows.GetCommandLineA()
 var targetPath = $cast[cstring](params)
 targetPath = targetPath.subStr(targetPath.find(" "))
 var targetName = targetPath.subStr(targetPath.rfind("\\")+1)
-echo(targetPath)
-echo(targetName)
 #todo:选择了多个文件的时候，会打开多个实例
 
 #search files
@@ -18,20 +22,38 @@ searchFileContainer.setAttribute("TABTITLE","文件查找")
 var tag1 = iup.link("http://nim-lang.org/","我的标签")
 var allTagsContainer = iup.vbox(tag1,iup.fill(),nil)
 allTagsContainer.setAttribute("TABTITLE","所有标签")
+
 #cur file tags tab
+proc TagItBtnClick(arg: PIhandle): cint {.cdecl.} =
+    var sqlStr = sql("insert into Tag (Tag) values (?)")
+    var  val = tagTextBox.getAttribute("VALUE")
+    conn.exec(sqlStr,val)
+    message("Hello World Message", val)
+
 var label = iup.label("当前文件："&targetName)
 discard label.setAttributes("MARGIN=6X6")
-var tagTextBox = iup.text(nil)
+tagTextBox = iup.text(nil)
 discard tagTextBox.setAttributes("EXPAND=HORIZONTAL,SIZE=x12")
 var tagButton = iup.button("打标签",nil)
+tagButton.setCallback("ACTION", cast[Icallback](TagItBtnClick))
+
 discard tagButton.setAttributes("SIZE=56X")
 var tagItContainer = iup.hbox(tagTextBox,tagButton,nil)
 discard tagItContainer.setAttributes("GAP=4,MARGIN=0X4X4X4")
 
-var tag = iup.link("http://nim-lang.org/","我的标签")
-var tagsContainer = iup.hbox(tag,iup.fill(),nil)
-discard tagsContainer.setAttributes("MARGIN=0X4X4X4")
+tagsContainer = iup.hbox(iup.fill(),nil)
+discard tagsContainer.setAttributes("MARGIN=0X4X4X4,GAP=4")
 
+proc showCurDocTags()=    
+    var rows = conn.getAllRows(sql"select * from Tag")
+    for i in 0 .. rows.len-1:
+        var tag = iup.link("http://nim-lang.org/",$rows[i][1])
+        tagsTable[rows[i][0].parseInt] = tag
+        discard tagsContainer.insert(nil,tag)
+    
+
+showCurDocTags()
+    
 var curFileTagsContainer = iup.vbox(label,tagItContainer,tagsContainer,iup.fill(),nil)
 curFileTagsContainer.setAttribute("TABTITLE","打标签")
 #tabs
