@@ -1,1 +1,1 @@
-nim c -r -d:taintMode --app: gui  doctag.nim
+nim c -r --app: gui  doctag.nim
