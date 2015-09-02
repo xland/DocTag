@@ -1,8 +1,8 @@
 ﻿import  windows,strutils,tables,iup,db_sqlite
 
 #定义一些全局的变量
-var tagTextBox,tagsContainer,searchFileContainer,allTagsContainer,curFileTagsContainer:PIhandle ##窗口上的控件句柄
-var tagsTable = initTable[int,PIhandle]() ##这里存放当前文档的所有标签的控件句柄
+var tagTextBox,tagsContainer,searchFileContainer,allTagsContainer,curFileTagsContainer,dlg:PIhandle ##窗口上的控件句柄
+var tagsTable = initTable[string,PIhandle]() ##这里存放当前文档的所有标签的控件句柄
 var targetPath,targetName:string ##当前文件的路径，当前文件的文件名
 var conn:TDbConn = db_sqlite.open("db.db","","","")##打开数据库链接
 
@@ -10,15 +10,23 @@ proc TagItBtnClick(arg: PIhandle): cint {.cdecl.} =
     ##点击一个标签控件的时候，触发此函数
     var sqlStr = sql("insert into Tag (Tag) values (?)")
     var  val = tagTextBox.getAttribute("VALUE")
-    conn.exec(sqlStr,val)
-    message("Hello World Message", val)
+    var id = conn.insertID(sqlStr,val)
+    var tag = iup.link("http://nim-lang.org/",val)
+    #discard tag.setAttributes("FLOATING=YES")
+    tagsTable[$id] = tag
+    discard tagsContainer.insert(nil,tag)
+    tag.map()
+    tagsContainer.refresh()
+
+    
     
 proc showCurDocTags()=    
     ##在窗口上显示当前文件的所有标签
     var rows = conn.getAllRows(sql"select * from Tag")
     for i in 0 .. rows.len-1:
         var tag = iup.link("http://nim-lang.org/",$rows[i][1])
-        tagsTable[rows[i][0].parseInt] = tag
+        #discard tag.setAttributes("FLOATING=YES")
+        tagsTable[rows[i][0]] = tag
         discard tagsContainer.insert(nil,tag)
 
 proc appInit() =
@@ -65,7 +73,7 @@ proc drawDialog()=
     var tabsContainer = iup.vbox(tabs,nil)
     tabs.setAttribute("EXPAND","YES")
     tabsContainer.setAttribute("MARGIN","6x6")
-    var dlg = iup.dialog(tabsContainer)
+    dlg = iup.dialog(tabsContainer)
     dlg.setAttribute("TITLE", "文件-标签") #todo
     dlg.setAttribute("SIZE", "QUARTERxQUARTER")
     discard dlg.showXY(IUP_CENTER, IUP_CENTER)
